@@ -1,0 +1,40 @@
+<%- include('partials/header') %>
+<section class="hero-banner magic-ball">
+<div class="container">
+    <div class="row">
+        
+        <div style="width: 30%; margin: 30px auto;">
+            <h1 style="text-align: center;">Choose your Destination</h1>
+                <form action="/book" method="POST">
+                    <div class="form-group">
+                        <input class="form-control" type="date" name="date">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option value="">Departure</option>
+                            <option value="Assiut">Assiut</option>
+                            <option value="Cairo">Cairo</option>
+                            <option value="Alexandria">Alexandria</option>
+                            <option value="Sohag">Sohag</option>
+                          </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option>Destination</option>
+                            <option value="Assiut">Assiut</option>
+                            <option value="Cairo">Cairo</option>
+                            <option value="Alexandria">Alexandria</option>
+                            <option value="Sohag">Sohag</option>
+                          </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-primary btn-block">Check availability</button>
+                    </div>
+                </form>
+                <a href="/">Home</a>
+        </div>            
+    </div>
+        
+</div>
+</section>
+
