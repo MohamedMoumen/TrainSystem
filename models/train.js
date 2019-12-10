@@ -3,10 +3,8 @@ var Schema = mongoose.Schema;
 var trainSchema = mongoose.Schema({
     departure: String,
     destination: String,
-    dateOfDeparture: Date,
-    numberOfCarts: Number,
-    seats: [ {cartNo: Number, seatNo: Number, isBooked: Boolean} ],
-
+    date: {type: Date, default: Date.now},
+    cart: [ mongoose.Schema.Types.Mixed ]
 });
 //Making a model in the db
-module.exports = mongoose.model('Train', trainSchema);
+module.exports = mongoose.model('train', trainSchema);

@@ -7,30 +7,41 @@
             <h1 style="text-align: center;">Choose your Destination</h1>
                 <form action="/book" method="POST">
                     <div class="form-group">
-                        <input class="form-control" type="date" name="date">
+                        <input class="form-control" name="departure" list="departure" placeholder="Departure" required>
                     </div>
                     <div class="form-group">
-                        <select class="form-control">
-                            <option value="">Departure</option>
-                            <option value="Assiut">Assiut</option>
-                            <option value="Cairo">Cairo</option>
-                            <option value="Alexandria">Alexandria</option>
-                            <option value="Sohag">Sohag</option>
-                          </select>
+                        <input class="form-control" name="destination" list="destination" placeholder="Destination" required>
                     </div>
                     <div class="form-group">
-                        <select class="form-control">
-                            <option>Destination</option>
-                            <option value="Assiut">Assiut</option>
-                            <option value="Cairo">Cairo</option>
-                            <option value="Alexandria">Alexandria</option>
-                            <option value="Sohag">Sohag</option>
-                          </select>
+                        <input class="form-control" type="date" name="date" required placeholder="Date of departure">
                     </div>
+                    <div class="form-group">
+                        <input class="form-control" type="number" placeholder="Cart Number" name="cart" min="1" max="6" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input class="form-control" type="number" placeholder="Seat Number" name="seat" min="1" max="20" required>
+                    </div>
+
                     <div class="form-group">
                         <button class="btn btn-lg btn-primary btn-block">Check availability</button>
                     </div>
                 </form>
+                <datalist id="departure"> 
+                    <option value="Assiut">Assiut</option>
+                    <option value="Cairo">Cairo</option>
+                    <option value="Alexandria">Alexandria</option>
+                    <option value="Sohag">Sohag</option>
+                </datalist>
+
+                <datalist id="destination"> 
+                    <option value="Assiut">Assiut</option>
+                    <option value="Cairo">Cairo</option>
+                    <option value="Alexandria">Alexandria</option>
+                    <option value="Sohag">Sohag</option>
+                </datalist>
+
+
                 <a href="/">Home</a>
         </div>            
     </div>
