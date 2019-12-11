@@ -2,80 +2,31 @@ var mongoonse = require('mongoose');
 var Train = require('./models/train');
 
 //Seeding array
-var data = [
-    {//first
-        departure: "Assiut",
-        destination: "Cairo",
-        date: new Date(2020, 1, 1),
-        cart:[
-            {
-                cartNumber: 1,
-                seats: [
-                    {
-                        seatNumber: 1,
-                        isBooked: true
-                    }
 
-                ]
-            }
-        ]
+var cc = []
 
-    },
-    {//second
-        departure: "Assiut",
-        destination: "Cairo",
-        date: new Date(2020, 1, 1),
-        cart:[
-            {
-                cartNumber: 1,
-                seats: [
-                    {
-                        seatNumber: 1,
-                        isBooked: true
-                    }
+for(var i = 0; i < 6; i++){
+    cc.push({
+        cartNumber:i + 1,
+        seats:[]
+    })
+}
 
-                ]
-            }
-        ]
-
-    },
-    {//third
-        departure: "Assiut",
-        destination: "Cairo",
-        date: new Date(2020, 1, 1),
-        cart:[
-            {
-                cartNumber: 1,
-                seats: [
-                    {
-                        seatNumber: 1,
-                        isBooked: true
-                    }
-
-                ]
-            }
-        ]
-
-    },
-    {//fourth
-        departure: "Assiut",
-        destination: "Cairo",
-        date: new Date(2020, 1, 1),
-        cart:[
-            {
-                cartNumber: 1,
-                seats: [
-                    {
-                        seatNumber: 1,
-                        isBooked: true
-                    }
-
-                ]
-            }
-        ]
-
+for(var i = 0; i < 6; i++){
+    for(var j = 0; j < 20; j++) {
+        cc[i].seats.push({
+            seatNumber:j + 1,
+            isBooked:false
+        })
     }
-]
+}
+
+var data = [{
+        departure: "Assiut",
+        destination: "Cairo",
+        date: "2020-01-01",
+        cart: cc
+}]
 
 function seedDB() {
     Train.remove({}, function(err){
@@ -83,7 +34,18 @@ function seedDB() {
             console.log(err)
         }
         console.log("removed trains")
+        //add few trains
+        data.forEach(function(seed) {
+            Train.create(seed, function(err, train) {
+                if(err){
+                    console.log(err);
+                }else {
+                    console.log('added train')
+                }
+            })
+        })
 
-        
     })
 }
+
+module.exports = seedDB;

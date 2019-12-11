@@ -3,7 +3,7 @@ const app = express();
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const seedDB = require('./seed');
 //const Schema = mongoose.Schema();
 
 app.set("view engine", "ejs");
@@ -12,6 +12,9 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 // Requiring routes
 const trainRoutes = require('./routes/train');
+//Seed the db
+seedDB();
+
 
 //Connect the db
 mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true});

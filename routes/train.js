@@ -9,47 +9,46 @@ router.get('/', function(req, res){
 
 //Book a ticket
 router.post('/', function(req, res) {
-    console.log(req.body.departure);
     //here you take the data from the request and query it in the db.
     var departure = req.body.departure;
     var destination = req.body.destination;
     var date = req.body.date;
-    var cart = [
-        {
-            cartNumber: req.body.cart,
-            seats: [
-                {
-                    seatNumber: req.body.seat,
-                    isBooked: false
-                }
-            ]
-            
-        }
-    ]
-    
-    console.log(req.body.cart)
-    console.log(req.body.seat)
-    var book = {departure: departure, destination: destination, date:date}
-    console.log(book);
-    //might be troublesome
-    Train.findOne(book, function(err, train) {
-        if(err){
+
+    //The variable that decides what data we will query in the db
+    var book = {departure: departure, destination:destination, date:date}
+
+    Train.findOne(book,function(err, foundOne){
+        if(err) {
             console.log(err)
-        } else {
-            if(train.cart.seat.isBooked) {
-                // tell the user that the seat is not available
-                res.send("seat not available")
+        } else {// Could use some simplicity ...
+            if(foundOne == null){
+                res.send("Seat not available <a href=\"/\">Home</a>")
             } else {
-                train.cart.seat.isBooked = true;
-                res.send("booked successfully");
-                // Train.findOneAndUpdate(book, req.body.train, function(err, updatedTrain) {
-                //     //tell the user that the seat is booked
-                //     res.send("seat booked successfully")
-                // })
+                //Updating the db 
+                
+                var cart = foundOne.cart;
+                cart[req.body.cart - 1].seats[req.body.seat - 1].isBooked = true;
+                Train.findOneAndUpdate(book, {cart:cart}, function(err, train) {
+                    if(err){
+                        console.log(err)
+                    } else {
+                        if(train.cart[req.body.cart - 1].seats[req.body.seat - 1].isBooked) {
+                            res.send("Seat not available <a href=\"/\">Home</a>")
+                        } else {
+                            var data = {
+                                cart: req.body.cart,
+                                seat:req.body.seat,
+                                id: train.id
+                            }
+                            res.render('confirm',{train:data});
+                            // res.send("booked successfully\nYour ticket: " + train + " <a href=\"/\">Home Page</a>");
+                        }
+                    }
+                } )
             }
         }
-    } )
-});
+    })
+ });
 
 module.exports = router;
 
